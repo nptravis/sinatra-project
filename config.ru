@@ -6,6 +6,4 @@ end
 
 use Rack::MethodOverride
 use SessionController
-use CommentController
-use UserController
 run ApplicationController
