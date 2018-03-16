@@ -6,30 +6,44 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-  	set :session_secret, "secret"
+  	set :session_secret, "mysecretcode"
   end
 
   get '/' do
   	erb :index
   end
 
+  get '/failure' do 
+    erb :failure
+  end
+
   helpers do
 		def logged_in?
-			!!session[:user_id]
+			!!session[:email]
 		end
 
-    def teacher?
+    def instance_or_false(data_hash)
+      teacher = Teacher.find_by(email: data_hash[:email])
+      if teacher
+        teacher
+      else
+        student = Student.find_by(email: data_hash[:email])
+        if student
+          student
+        else
+          admin = Admin.find_by(email: data_hash[:email])
+          if admin
+            admin
+          else
+            false
+          end
+        end
+      end
     end
 
-    def student?
-    end
-
-    def admin?
-    end
-
-		# def current_user
-		# 	User.find(session[:user_id])
-		# end
+		def current_user
+			instance_or_false(session)
+		end
 		
 	end
 

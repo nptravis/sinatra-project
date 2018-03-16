@@ -1,6 +1,10 @@
 <div class="main-content">
 <h1>Welcome to A1 School</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %><br>
+
 <a href="/login">Log In</a>
 <a href="/teacher_signup">Teacher Sign Up</a>
 <a href="/student_signup">Student Sign Up</a>
