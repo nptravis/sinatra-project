@@ -44,6 +44,10 @@ class ApplicationController < Sinatra::Base
 		def current_user
 			instance_or_false(session)
 		end
+
+    def teacher_or_student
+      
+    end
 		
 	end
 

@@ -12,4 +12,5 @@ use StudentController
 use SessionController
 use AdminController
 use AssignmentController
+use UserController
 run ApplicationController

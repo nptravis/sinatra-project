@@ -6,9 +6,25 @@
 	<title>Sinatra Project</title>
 </head>
 <body>
-	<div name="session-links">
-		<a href="/logout">Log Out</a>
-	</div>
+	<header>
+		<div class="flex-container">
+			<div class="logo">
+				<a href="/"><h1>YouSchool</h1></a>
+			</div>
+			<div class="session-links">
+				<ul>
+				<%if logged_in? %>
+					<li><a href="/<%=current_user.class.to_s.downcase%>s/<%= current_user.slug %>">Welcome <%=current_user.first_name%></a></li>
+					<li><a href="/logout">Log Out</a></li>
+				<% else %>
+					<li><a href="/login">Log In</a></li>
+					<li><a href="/signup">Sign Up</a></li>
+				<% end %>
+				</ul>
+			</div>
+		</div>
+	</header>
+	
 	<%= yield %>
 	
 </body>
