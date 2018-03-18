@@ -3,15 +3,16 @@
 <h3>Class: <%= @klass.name %></h3>
 <p><%= @klass.description %></p>
 <h4>Teacher: <a href="/users/<%= @teacher.slug %>"><%= @teacher.username %></a></h4>
-<% if @klass.users %>
-	<h4>Users:</h4>
+<% if @klass.users && @teacher.id != @klass.user_id %>
+	<h4>Members:</h4>
 	<ul>
 		<% @klass.users.each do |student| %>
-		<li><a href="/students/<%=student.slug%>"><%= student.name_join %></a></li>
+			<li><a href="/students/<%=student.slug%>"><%= student.username  %></a></li>
 		<% end %>
 	</ul>
 <% else %>
 	<h4>This class has no students!</h4>
+	<a href="/invite">Invite Students</a>
 <% end %>
 
 

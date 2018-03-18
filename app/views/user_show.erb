@@ -1,11 +1,23 @@
 <h1>Welcome, <%=@user.username%></h1>
 
-Here are your classes:
+
+<h3>Here are classes you're hosting:</h3>
 <% @user.klasses.each do |klass| %>
-<div class="user_klasses"></div>
-	<a href="/klasses/<%=klass.slug%>"><%= klass.name %></a>
-	<p><%= klass.description %></p>
-</div>
+	<%if @user.id == klass.user_id %>
+		<div class="user-klasses"></div>
+			<a href="/klasses/<%=klass.slug%>"><%= klass.name %></a>
+			<p><%= klass.description %></p>
+		</div>
+	<% end %>
+<% end %>
+<h3>Here are classes you've joined:</h3>
+<% @user.klasses.each do |klass| %>
+	<%if @user.id != klass.user_id %>
+		<div class="user-klasses"></div>
+			<a href="/klasses/<%=klass.slug%>"><%= klass.name %></a>
+			<p><%= klass.description %></p>
+		</div>
+	<% end %>
 <% end %>
 
 <a href="/create"><button>Create a Class</button></a>

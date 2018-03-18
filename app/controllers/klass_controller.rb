@@ -2,7 +2,7 @@ class KlassController < ApplicationController
 
 	get '/klasses/:slug' do 
 		@klass = Klass.find_by_slug(params[:slug])
-		@teacher = User.find(@klass.owner_id)
+		@teacher = User.find(@klass.user_id)
 		erb :klass_show
 	end
 
@@ -22,7 +22,9 @@ class KlassController < ApplicationController
 
 	post '/create' do 
 		@klass = Klass.create(params)
-		@klass.owner_id = current_user.id
+		@user = User.find(current_user.id)
+		@klass.user_id = @user.id
+		@user.klasses << @klass
 		@klass.save
 		redirect "/klasses/#{@klass.slug}"
 	end
