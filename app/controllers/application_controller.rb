@@ -19,35 +19,12 @@ class ApplicationController < Sinatra::Base
 
   helpers do
 		def logged_in?
-			!!session[:email]
+			!!session[:user_id]
 		end
-
-    def instance_or_false(data_hash)
-      teacher = Teacher.find_by(email: data_hash[:email])
-      if teacher
-        teacher
-      else
-        student = Student.find_by(email: data_hash[:email])
-        if student
-          student
-        else
-          admin = Admin.find_by(email: data_hash[:email])
-          if admin
-            admin
-          else
-            false
-          end
-        end
-      end
-    end
 
 		def current_user
-			instance_or_false(session)
+			User.find(session[:user_id])
 		end
-
-    def teacher_or_student
-      
-    end
 		
 	end
 

@@ -14,7 +14,7 @@
 			<div class="session-links">
 				<ul>
 				<%if logged_in? %>
-					<li><a href="/<%=current_user.class.to_s.downcase%>s/<%= current_user.slug %>">Welcome <%=current_user.first_name%></a></li>
+					<li><a href="/users/<%=current_user.slug%>">Welcome <%=current_user.username%></a></li>
 					<li><a href="/logout">Log Out</a></li>
 				<% else %>
 					<li><a href="/login">Log In</a></li>
