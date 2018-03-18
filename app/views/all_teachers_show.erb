@@ -1,0 +1,7 @@
+<h1>All Teachers</h1>
+
+<ul>
+	<% @teachers.each do |teacher|%>
+	<li><a href="/teachers/<%= teacher.slug %>"><%= teacher.name_join %></a></li>
+	<% end %>
+</ul>

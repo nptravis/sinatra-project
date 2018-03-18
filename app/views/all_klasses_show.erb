@@ -1,0 +1,7 @@
+<h1>All Classes</h1>
+
+<ul>
+	<% @klasses.each do |klass|%>
+	<li><a href="/klasses/<%= klass.slug %>"><%= klass.name %></a></li>
+	<% end %>
+</ul>

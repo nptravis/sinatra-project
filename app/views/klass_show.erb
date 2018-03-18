@@ -1,0 +1,47 @@
+<h1>Class Show Page</h1>
+
+<h3>Class: <%= @klass.name %></h3>
+<h4>Grade: <%= @klass.grade %></h4>
+<h4>Teacher: <a href="/teachers/<%= @klass.teacher.slug %>"><%= @klass.teacher.name_join %></a></h4>
+<h4>Students:</h4>
+<ul>
+	<% @klass.students.each do |student| %>
+	<li><a href="/students/<%=student.slug%>"><%= student.name_join %></a></li>
+	<% end %>
+</ul>
+
+<!-- Teacher or Admin only -->
+<% if current_user.class != Student%>
+<h3>Add assignment:</h3>
+<form method="post" action="/assignments/new">
+	<label>Assignment Name: </label>
+	<input type="text" name="name"><br>
+	<label>Instructions:</label>
+	<input type="text" name="instructions"><br>
+	<label>Due Date:</label>
+	<input type="text" name="due_date"><br>
+	<label>Give to which Students:</label><br>
+		<% @klass.students.each do |student| %>
+		<input type="checkbox" name="student_ids[]" value="<%= student.id%>"><%= student.name_join %>
+		<% end %><br>
+	<input type="submit" value="Create Assignemnt">
+</form>
+<% end %>
+<!-- End Teacher or Admin only -->
+<br></br>
+
+<div class="comment-feed">
+	
+
+
+</div>
+
+<% if logged_in? %>
+	<div class="klass-create-comments">
+		<form method="post" action="/klasses/comments/new">
+			<label>Post a comment</label>
+			<textarea name="comment[content]"></textarea>
+			<input type="submit" value="Post">
+		</form>
+	</div>
+<% end %>

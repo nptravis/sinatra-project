@@ -1,0 +1,22 @@
+<h1>Index All</h1>
+
+<h3>Teachers: </h3>
+<ul>
+	<% @teachers.each do |teacher| %>
+		<li><a href="/teachers/<%= teacher.slug %>"><%= teacher.name_join %></a></li>
+	<% end %>
+</ul>
+
+<h3>Students: </h3>
+<ul>
+	<% @students.each do |student| %>
+		<li><a href="/students/<%= student.slug %>"><%= student.name_join %></a></li>
+	<% end %>
+</ul>
+
+<h3>Classes: </h3>
+<ul>
+	<% @klasses.each do |klass| %>
+		<li><a href="klasses/<%= klass.slug %>"><%= klass.name %></a></li>
+	<% end %>
+</ul>

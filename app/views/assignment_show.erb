@@ -1,0 +1,41 @@
+<h1>Assignment Show Page</h1>
+
+<h3>Assignment Name: <%= @assignment.name %></h3>
+
+<h4>Instructions: </h4>
+<p><%= @assignment.instructions %></p>
+
+<h4>Due Date: </h4>
+<p><%= @assignment.due_date %></p>
+
+<!-- Only for Admin and Teachers -->
+<% if current_user.class != Student %>
+	<h4>Students assigned this assignment: </h4>
+	<ul>
+		<% @assignment.students.each do |student| %>
+			<li><a href="/students/<%= student.slug %>"><%= student.name_join %></a></li>
+			<% @student_assignment = StudentAssignment.where("student_id = ? AND assignment_id = ?", student.id, @assignment.id)[0] %>
+			<%if @student_assignment.student_content %>
+			<p><%=@student_assignment.student_content%></p>
+			<% end %>
+		<% end %>
+	</ul>
+<% end %>
+<!-- end Only for Admin and Teachers -->
+
+<!-- Only for Students -->
+<% if current_user.class == Student %>
+	<%if @student_assignment && @student_assignment.student_content %>
+		<h4>Your answer:</h4>
+		<p><%=@student_assignment.student_content%></p>
+		<a href="/assignments/<%= @assignment.slug %>/edit"><button>Edit</button></a>
+	<% else %>
+		<h4>Write/Paste your solution here:</h4>
+		<form method="post" action="/students/assignments/<%= @assignment.slug %>">
+			<textarea type="text" style="height: 200px; width: 200px" name="student_content"><%= session[:student_content] %></textarea><br>
+			<input id="hidden" type="hidden" name="_method" value="patch">
+			<input type="submit" value="Submit Answer">
+		</form>
+	<% end %>
+<% end %>
+<!-- End Only for Students -->

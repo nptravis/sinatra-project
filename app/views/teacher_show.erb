@@ -1,0 +1,8 @@
+<h1>Welcome <%=@teacher.name_join%></h1>
+
+<h3>Here are your classes:</h3>
+<ul>
+	<% @teacher.klasses.each do |klass| %>
+		<li><a href="/klasses/<%= klass.slug %>"><%= klass.name %></a></li>
+	<% end %>
+</ul>

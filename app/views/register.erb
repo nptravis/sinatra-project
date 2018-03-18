@@ -1,0 +1,11 @@
+<h1>Register for Classes</h1>
+
+<h3>Here are all the classes for your grade:</h3>
+<form method="post" action="/students/<%=@student.slug%>/register">
+	<% @klasses.each do |klass| %>
+	 <%if klass.grade == @student.grade %>
+		<input type="checkbox" name="klass_ids[]" value="<%= klass.id%>"><%= klass.name %>
+		<% end %>
+	<% end %>
+	<input type="submit" value="Register">
+</form>

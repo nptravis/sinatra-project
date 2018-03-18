@@ -1,0 +1,17 @@
+<h1>Student: <%= @student.name_join %></h1>
+
+<h2>Here are your current classes: </h2>
+<ul>
+	<% @student.klasses.each do |klass|%>
+	<li><a href="/klasses/<%= klass.slug %>"><%= klass.name %></a></li>
+	<% end %>
+</ul>
+
+<a href="/students/<%=@student.slug%>/register">Register for more classes</a>
+
+<h2>Here are your assignments: </h2>
+<ul>
+	<% @student.assignments.each do |assignment| %>
+	<li><a href="/assignments/<%=assignment.slug%>"><%= assignment.name %></a></li>
+	<% end %>
+</ul>

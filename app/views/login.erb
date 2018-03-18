@@ -1,0 +1,15 @@
+<h1>Log In</h1>
+
+<form method="post" action="/login">
+	<label>Email: </label>
+	<input type="email" name="email">
+	<label>Password: </label>
+	<input type="password" name="password">
+	<input type="submit" value="Log In">
+</form>
+
+<div class="flash-messages">
+<% if flash.has?(:message) %>
+  <%= flash[:message] %><a href="/signup">Sign Up</a>
+<% end %>
+</div>
