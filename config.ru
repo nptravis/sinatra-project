@@ -6,9 +6,8 @@ end
 
 use Rack::MethodOverride
 
-use TeacherController
+
 use KlassController
-use StudentController
 use SessionController
 use AdminController
 use AssignmentController

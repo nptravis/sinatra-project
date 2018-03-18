@@ -1,6 +1,12 @@
 <h1>Welcome, <%=@user.username%></h1>
 
 Here are your classes:
-<%%>
-<%%>
-<%%>
+<% @user.klasses.each do |klass| %>
+<div class="user_klasses"></div>
+	<a href="/klasses/<%=klass.slug%>"><%= klass.name %></a>
+	<p><%= klass.description %></p>
+</div>
+<% end %>
+
+<a href="/create"><button>Create a Class</button></a>
+<a href="/join"><button>Join a Class</button></a>

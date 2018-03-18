@@ -18,8 +18,8 @@ class SessionController < ApplicationController
 	end
 
 	get '/logout' do
-		flash[:message] = "You have been logged out."
 		session.clear
+		flash[:message] = "You have been logged out."
 		erb :index
 	end
 
@@ -30,7 +30,7 @@ class SessionController < ApplicationController
 	post '/signup' do 
 		@user = User.create(params)
 		session[:user_id] = @user.id
-		redirect '/create_or_join'
+		redirect "/users/#{@user.slug}"
 	end
 
 end

@@ -4,7 +4,7 @@ module Slugify
 	module InstanceMethod
 	
 		def slug 
-			if self.username
+			if self.class == User
 				self.username.downcase.split(" ").join("-")
 			else
 				self.name.downcase.split(" ").join("-")

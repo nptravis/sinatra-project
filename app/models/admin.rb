@@ -13,5 +13,5 @@ class Admin < ActiveRecord::Base
 			instance.slug == slug	
 		end
 	end
-	
+
 end
