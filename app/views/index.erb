@@ -8,3 +8,22 @@
 </div>
 
 <h3>Newsfeed</h3>
+
+<h3>Comment Feed</h3>
+
+
+	<div class="all-comments-container">
+		<% @comments.each do |comment| %>
+			<div class="each-comment-container">
+				<p><%= comment.content %></p>
+				<p><%= comment.content %></p>
+			</div>
+		<% end %>
+		<% if logged_in? %>
+		<form method="post" action="/klasses/comments/new">
+			<label>Post a comment</label>
+			<textarea name="content"></textarea>
+			<input type="submit" value="Post">
+		</form>
+		<% end %>
+	</div>

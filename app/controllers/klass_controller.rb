@@ -1,17 +1,11 @@
 class KlassController < ApplicationController
 
-	get '/klasses/:slug' do 
-		@klass = Klass.find_by_slug(params[:slug])
-		@teacher = User.find(@klass.user_id)
-		erb :klass_show
-	end
-
 	get '/klasses' do 
 		@klasses = Klass.all
 		erb :all_klasses_show
 	end
 
-	get '/create' do 
+	get '/klasses/create' do 
 		if logged_in?
 			erb :create
 		else
@@ -20,13 +14,50 @@ class KlassController < ApplicationController
 		end
 	end
 
-	post '/create' do 
+	post '/klasses/create' do 
 		@klass = Klass.create(params)
 		@user = User.find(current_user.id)
 		@klass.user_id = @user.id
-		@user.klasses << @klass
 		@klass.save
-		redirect "/klasses/#{@klass.slug}"
+		@user.klasses << @klass
+		
+		redirect "/users/#{@user.slug}"
+	end
+
+	get '/klasses/join' do
+		if logged_in?
+			@klasses = Klass.all - current_user.klasses
+			erb :join
+		else
+			flash[:message] = "Must be logged in to join classes."
+			redirect "/login"
+		end
+	end
+
+	post '/klasses/join' do 
+		if params[:klass_ids]
+			params[:klass_ids].each do |klass_id|
+				klass = Klass.find(klass_id)
+				current_user.klasses << klass
+			end
+			redirect "/users/#{current_user.slug}"
+		else
+			flash[:message] = "You didn't join any classes."
+			redirect "/users/#{current_user.slug}"
+		end
+	end
+
+	get '/klasses/:slug' do 
+		@klass = Klass.find_by_slug(params[:slug])
+		@teacher = User.find(@klass.user_id)
+		erb :klass_show
+	end
+
+	delete '/klasses/delete/:id' do 
+		@klass = Klass.find(params[:id])
+		@klass.destroy
+		flash[:message] = "Your class has been deleted."
+		redirect "/users/#{current_user.slug}"
 	end
 
 end

@@ -1,24 +1,33 @@
 <h1>Welcome, <%=@user.username%></h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 
 <h3>Here are classes you're hosting:</h3>
 <% @user.klasses.each do |klass| %>
 	<%if @user.id == klass.user_id %>
-		<div class="user-klasses"></div>
+		<div class="user-klasses">
 			<a href="/klasses/<%=klass.slug%>"><%= klass.name %></a>
+			<p><%= klass.time_day %></p>
 			<p><%= klass.description %></p>
+			<form method="post" action="/klasses/delete/<%= klass.id %>">
+				<input id="hidden" type="hidden" name="_method" value="delete">
+				<input type="submit" value="Delete Class">
+			</form>
 		</div>
 	<% end %>
 <% end %>
 <h3>Here are classes you've joined:</h3>
 <% @user.klasses.each do |klass| %>
 	<%if @user.id != klass.user_id %>
-		<div class="user-klasses"></div>
+		<div class="user-klasses">
 			<a href="/klasses/<%=klass.slug%>"><%= klass.name %></a>
 			<p><%= klass.description %></p>
 		</div>
 	<% end %>
 <% end %>
 
-<a href="/create"><button>Create a Class</button></a>
-<a href="/join"><button>Join a Class</button></a>
+<a href="/klasses/create"><button>Create a Class</button></a>
+<a href="/klasses/join"><button>Join a Class</button></a>

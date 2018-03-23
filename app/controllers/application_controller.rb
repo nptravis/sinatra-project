@@ -10,6 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
+    @comments = Comment.all
   	erb :index
   end
 

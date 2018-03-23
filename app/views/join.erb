@@ -1,2 +1,15 @@
 <h1>Join a Class</h1>
 <!-- all klasses checkboxes in a div with descriptions, sorted by subject -->
+<form method="post" action="/klasses/join">
+	<% @klasses.each do |klass| %>
+		<div class="user-klasses">
+			<h4><a href="/klasses/<%= klass.slug %>"><%= klass.name %></a></h4>
+			<p>Class description: <%= klass.description %></p>
+			<p>Time: <%= klass.time_day %></p>
+			<p>Weeks: <%= klass.weeks %></p>
+			<p>Location: <%= klass.location %></p>
+			<input type="checkbox" name="klass_ids[]" value="<%=klass.id%>">
+		</div>
+	<% end %>
+	<input type="submit" value="Join Selected Classes">
+</form>

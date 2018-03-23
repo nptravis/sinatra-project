@@ -12,7 +12,7 @@
 	</ul>
 <% else %>
 	<h4>This class has no students!</h4>
-	<a href="/invite">Invite Students</a>
+	<!-- <a href="/invite">Invite Students</a> -->
 <% end %>
 
 
@@ -27,7 +27,7 @@
 	<div class="klass-create-comments">
 		<form method="post" action="/klasses/comments/new">
 			<label>Post a comment</label>
-			<textarea name="comment[content]"></textarea>
+			<textarea name="content"></textarea>
 			<input type="submit" value="Post">
 		</form>
 	</div>
