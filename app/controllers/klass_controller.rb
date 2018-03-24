@@ -15,18 +15,25 @@ class KlassController < ApplicationController
 	end
 
 	post '/klasses/create' do 
-		@klass = Klass.create(params)
+		@klass = Klass.new(params)
 		@user = User.find(current_user.id)
 		@klass.user_id = @user.id
-		@klass.save
-		@user.klasses << @klass
-		
-		redirect "/users/#{@user.slug}"
+		if @klass.save
+			@user.klasses << @klass
+			redirect "/users/#{@user.slug}"
+		else
+			flash[:message] = "Must include valid information for each field."
+			redirect '/klasses/create'
+		end
 	end
 
 	get '/klasses/join' do
 		if logged_in?
-			@klasses = Klass.all - current_user.klasses
+			klasses = Klass.all
+			@klasses = []
+			klasses.each do |klass|
+				@klasses << klass if klass.user_id != current_user.id
+			end
 			erb :join
 		else
 			flash[:message] = "Must be logged in to join classes."

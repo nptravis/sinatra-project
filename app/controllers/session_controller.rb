@@ -28,9 +28,14 @@ class SessionController < ApplicationController
 	end
 
 	post '/signup' do 
-		@user = User.create(params)
-		session[:user_id] = @user.id
-		redirect "/users/#{@user.slug}"
+		@user = User.new(params)
+		if @user.save
+			session[:user_id] = @user.id
+			redirect "/users/#{@user.slug}"
+		else
+			flash[:message] = "Must fill in all fields with valid information."
+			redirect '/signup'
+		end
 	end
 
 end

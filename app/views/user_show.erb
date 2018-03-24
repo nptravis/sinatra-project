@@ -4,8 +4,6 @@
   <%= flash[:message] %>
 <% end %>
 
-
-
 <h3>Classes Hosted:</h3>
 <% @user.klasses.each do |klass| %>
 	<%if @user.id == klass.user_id %>
