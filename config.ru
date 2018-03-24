@@ -8,6 +8,7 @@ use Rack::MethodOverride
 
 
 use KlassController
+use CommentController
 use SessionController
 use AdminController
 use AssignmentController

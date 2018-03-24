@@ -1,0 +1,8 @@
+<h1>Edit Comment</h1>
+
+<form method="post" action="/comments/<%= @comment.id %>/edit">
+	<label>Edit your comment</label>
+	<textarea name="content"><%= @comment.content %></textarea>
+	<input id="hidden" type="hidden" name="_method" value="patch">
+	<input type="submit" value="Update">
+</form>
