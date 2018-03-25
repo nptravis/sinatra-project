@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323232712) do
+ActiveRecord::Schema.define(version: 20180325013318) do
 
   create_table "admins", force: :cascade do |t|
     t.string "first_name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180323232712) do
     t.string "location"
     t.integer "user_id"
     t.string "user_name"
+    t.boolean "edited", default: false
   end
 
   create_table "klasses", force: :cascade do |t|

@@ -12,7 +12,7 @@ class CommentController < ApplicationController
 
 	post '/comments/new' do 
 		if logged_in?
-			@comment = Comment.create(content: params[:content], user_id: current_user.id, user_name: current_user.username, location: "index" )
+			@comment = Comment.create(content: params[:content], user_id: current_user.id, user_name: current_user.username)
 			redirect '/'
 		else
 			flash[:message] = "Must be logged in to post a comment."
@@ -32,7 +32,9 @@ class CommentController < ApplicationController
 
 	patch '/comments/:id/edit' do
 		@comment = Comment.find(params[:id])
+		@comment.edited = true
 		@comment.update(content: params[:content])
+		binding.pry
 		redirect '/'
 	end
 

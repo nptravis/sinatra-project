@@ -14,12 +14,12 @@
 		<% @comments.each do |comment| %>
 			<div class="each-comment-container">
 				<p><%= comment.content %> - <small><b><%= comment.user_name %></b></small></p>
-			</div>
 			<% if logged_in? %>
-				<% if comment.user_id == current_user.id %>
+				<% if comment.user_id == current_user.id && comment.edited == false %>
 					<small><a href="/comments/<%= comment.id %>/edit">Edit Comment</a></small>
 				<% end %>
 			<% end %>
+			</div>
 		<% end %>
 		<% if logged_in? %>
 		<form method="post" action="/comments/new">
