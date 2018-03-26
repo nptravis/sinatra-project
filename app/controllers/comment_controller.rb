@@ -34,7 +34,6 @@ class CommentController < ApplicationController
 		@comment = Comment.find(params[:id])
 		@comment.edited = true
 		@comment.update(content: params[:content])
-		binding.pry
 		redirect '/'
 	end
 

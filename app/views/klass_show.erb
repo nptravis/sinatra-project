@@ -3,32 +3,14 @@
 <h3>Class: <%= @klass.name %></h3>
 <p><%= @klass.description %></p>
 <h4>Teacher: <a href="/users/<%= @teacher.slug %>"><%= @teacher.username %></a></h4>
-<% if @klass.users && @teacher.id != @klass.user_id %>
 	<h4>Members:</h4>
 	<ul>
-		<% @klass.users.each do |student| %>
-			<li><a href="/students/<%=student.slug%>"><%= student.username  %></a></li>
+		<% @klass.users.each do |user| %>
+			<% if user != @teacher %>
+				<li><a href="/users/<%=user.slug%>"><%= user.username  %></a></li>
+			<% end %>
 		<% end %>
 	</ul>
-<% else %>
-	<h4>This class has no students!</h4>
-	<!-- <a href="/invite">Invite Students</a> -->
-<% end %>
 
 
 
-<div class="comment-feed">
-	
-
-
-</div>
-
-<% if logged_in? %>
-	<div class="klass-create-comments">
-		<form method="post" action="/klasses/comments/new">
-			<label>Post a comment</label>
-			<textarea name="content"></textarea>
-			<input type="submit" value="Post">
-		</form>
-	</div>
-<% end %>
