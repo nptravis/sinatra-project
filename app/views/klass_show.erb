@@ -15,7 +15,10 @@
 	<h4>Teacher Comments: </h4>
 	<% @klass.comments.each do |comment| %>
 	<p><%= comment.content %></p>
-	<small><a href="/comments/<%= comment.id %>/edit">Edit Comment</a></small>
+	<% if !comment.edited %>
+		<small><a href="/comments/<%= comment.id %>
+	/edit">Edit Comment</a></small>
+	<% end %>
 	<% end %>
 <% if @teacher == current_user %>
 
