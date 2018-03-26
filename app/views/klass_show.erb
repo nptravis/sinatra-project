@@ -12,5 +12,18 @@
 		<% end %>
 	</ul>
 
+	<h4>Teacher Comments: </h4>
+	<% @klass.comments.each do |comment| %>
+	<p><%= comment.content %></p>
+	<small><a href="/comments/<%= comment.id %>/edit">Edit Comment</a></small>
+	<% end %>
+<% if @teacher == current_user %>
+
+	<form method="post" action="/klasses/<%= @klass.id %>/comments/new">
+		<label>Leave a comment for your students:</label>
+		<textarea name="content"></textarea>
+		<input type="submit" value="Post">
+	</form>
+<% end %>
 
 

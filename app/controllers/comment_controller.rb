@@ -1,19 +1,20 @@
 class CommentController < ApplicationController
 
-	post '/klasses/comments/new' do 
+	post '/comments/new' do 
 		if logged_in?
-			@comment = Comment.create(content: params[:content], user_id: current_user.id, location: "klass" )
-			redirect '/klasses'
+			@comment = Comment.create(content: params[:content], user_id: current_user.id, user_name: current_user.username)
+			redirect '/'
 		else
 			flash[:message] = "Must be logged in to post a comment."
 			redirect '/login'
 		end
 	end
 
-	post '/comments/new' do 
+	post '/klasses/:id/comments/new' do 
 		if logged_in?
-			@comment = Comment.create(content: params[:content], user_id: current_user.id, user_name: current_user.username)
-			redirect '/'
+			@klass = Klass.find(params[:id])
+			@comment = Comment.create(content: params[:content], user_id: current_user.id, user_name: current_user.username, klass_id: @klass.id)
+			redirect "/klasses/#{@klass.slug}"
 		else
 			flash[:message] = "Must be logged in to post a comment."
 			redirect '/login'
@@ -34,7 +35,12 @@ class CommentController < ApplicationController
 		@comment = Comment.find(params[:id])
 		@comment.edited = true
 		@comment.update(content: params[:content])
-		redirect '/'
+		if @comment.klass_id
+			@klass = Klass.find(@comment.klass_id)
+			redirect "/klasses/#{@klass.slug}"
+		else
+			redirect '/'
+		end
 	end
 
 end

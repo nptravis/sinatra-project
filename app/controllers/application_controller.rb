@@ -10,7 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    @comments = Comment.all
+    @comments = Comment.where("klass_id IS ?", nil)
   	erb :index
   end
 
